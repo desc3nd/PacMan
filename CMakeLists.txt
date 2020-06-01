@@ -1,0 +1,16 @@
+cmake_minimum_required(VERSION 3.1)
+project(PACMAN)
+
+set(CMAKE_CXX_STANDARD 14)
+add_compile_options(-Wall -Wextra)
+add_executable(PACMAN main.cpp PacBoard.cpp PacBoard.h PacMan.cpp Pacman.h PacGhosts.h PacGhosts.cpp PacView.cpp PacView.h PacGameMenager.h PacGameMenager.cpp PacSFMLGraphic.cpp PacSFMLGraphic.h)
+if (UNIX)
+    set ( CMAKE_MODULES_PATH "/usr/share/SFML/cmake/Modules" ${CMAKE_MODULE_PATH})
+endif(UNIX)
+
+if (WIN32)
+    # //   set( SFML_STATIC_LIBRARIES TRUE )
+    set ( SFML_DIR "C:/cpp/SFML-2.5.1/lib/cmake/SFML")
+endif(WIN32)
+find_package(SFML 2 REQUIRED graphics window system)
+target_link_libraries(PACMAN sfml-graphics sfml-audio)

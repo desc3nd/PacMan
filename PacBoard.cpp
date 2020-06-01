@@ -47,7 +47,10 @@ for_draw(31,4,32,26);
 for_draw(27,3,30,4);
 for_draw(29,2,32,3);
 for_draw(27,26,30,27);
-for_draw(29,27,32,28);
+for_draw(29,27,32,28);\
+board[15][12].hasTrap=false;
+board[15][14].hasTrap=false;
+board[16][14].hasTrap=false;
 placeFoodOnBoard();
 }
 
@@ -104,7 +107,7 @@ char PacBoard::getCharInfo(int x, int y) {
     {
         return 'p';
     }
-    return '.';
+    return '_';
 }
 
 void PacBoard::placeFoodOnBoard() {

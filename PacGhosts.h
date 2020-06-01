@@ -14,7 +14,8 @@ int width;
 PacCoord ghostCoord[3];
 public:
     explicit PacGhosts(PacBoard &x);
-    char ghostsMovement(char klawisz);
+  void ghostsMovement( int nrOfGhost);
+    bool isGhost(int row,int col);
 };
 
 

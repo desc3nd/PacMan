@@ -5,8 +5,7 @@
 #ifndef LOL_PACBOARD_H
 #define LOL_PACBOARD_H
 
-enum GameMode{Easy,Medium,Hard};
-enum GameStatus{Running,Lost};
+
 struct field
 {
     bool hasPacman;
@@ -26,7 +25,6 @@ class PacBoard {
 
     int height;
     int width;
-    GameStatus state;
     void for_draw(int row, int col, int rowKoniec,int colKoniec);
     void placeFoodOnBoard();
 
