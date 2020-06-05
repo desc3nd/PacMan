@@ -24,23 +24,25 @@ int PacSFMLGraphic::getScreenHeight() {
 
 void PacSFMLGraphic::draw(sf::RenderTarget &target, sf::RenderStates states) const {
 target.draw(pacek);
-for(int i=0; i<1000;i++)
+for(const auto & trap : traps)
 {
-    target.draw(traps[i]);
+    target.draw(trap,states);
 }
     for(int i=0; i<1000;i++)
     {
         target.draw(food[i]);
     }
-    target.draw(ghostek[0]);
-    target.draw(ghostek[1]);
-    target.draw(ghostek[2]);
+    target.draw(ghostek[0],states);
+    target.draw(ghostek[1],states);
+    target.draw(ghostek[2],states);
+//    target.draw(ghostek[3],states);
+//    target.draw(ghostek[4],states);
 }
 
 void PacSFMLGraphic::drawBoard()
 {
-    int tempHeight=0;
-    int tempWidth=0;
+    int tempHeight=10;
+    int tempWidth=3;
     int i=0;
     int foodNumber=0;
     int nrGhostka=0;
@@ -75,10 +77,14 @@ void PacSFMLGraphic::drawBoard()
                 ghostek[nrGhostka].setPosition(sf::Vector2f(tempWidth,tempHeight));
                 ghostek[nrGhostka].setFillColor(sf::Color::Blue);
                 nrGhostka++;
+                if(nrGhostka>3)
+                {
+                    nrGhostka=0;
+                }
             }
         tempWidth+=20;
         }
-        tempWidth=0;
+        tempWidth=10;
         tempHeight+=20;
 
     }

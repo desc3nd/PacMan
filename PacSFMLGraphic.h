@@ -18,10 +18,10 @@ int height;
 int width;
 int screenWidth;
 int screenHeight;
-void drawBoard();
+
 sf::CircleShape points[100];
 sf::CircleShape pacek;
-sf::CircleShape ghostek[2];
+sf::CircleShape ghostek[10];
 sf::RectangleShape traps[1000];
 sf::RectangleShape food[1000];
 
@@ -30,7 +30,7 @@ public:
     int getScreenWidth();
     int getScreenHeight();
     void draw(sf::RenderTarget& target,sf::RenderStates states) const override;
-
+    void drawBoard();
 };
 
 
