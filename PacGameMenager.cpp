@@ -2,15 +2,15 @@
 // Created by Marcinek on 01.06.2020.
 //
 
-                                                                                                                                                                                                                                                 #include "PacGameMenager.h"
+#include "PacGameMenager.h"
 
 PacGameMenager::PacGameMenager(PacMan &pac, PacGhosts &ghost, PacBoard &tab):pacMan(pac),ghosts(ghost),board(tab)
 {
-height=board.getHeight();
-width=board.getWidth();
-points=0;
-lives=3;
-status=Running;
+    height=board.getHeight();
+    width=board.getWidth();
+    points=0;
+    lives=3;
+    status=Running;
 }
 
 void PacGameMenager::play() {
@@ -25,6 +25,7 @@ void PacGameMenager::play() {
             if(pacMan.getCharInfo(row,col) && board.getCharInfo(row,col)=='f')
             {
                 points++;
+                board.setFoodFalse(row,col);
             }
         }
 

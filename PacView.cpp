@@ -22,7 +22,7 @@ void PacView::Display() {
             }
             if(pacBoard.getCharInfo(row,col)=='f')
             {
-                std::cout<<" ";
+                std::cout<<"0";
             }
             if(pacMan.getCharInfo(row,col))
             {

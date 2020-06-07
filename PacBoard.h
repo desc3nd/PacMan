@@ -13,6 +13,7 @@ struct field
     bool hasFood;
     bool hasTrap;
     bool hasPremiumFood;
+    bool isEmpty;
 };
 //struct coord{
 //    int col;
@@ -26,6 +27,7 @@ class PacBoard {
     int height;
     int width;
     void for_draw(int row, int col, int rowKoniec,int colKoniec);
+    void erase(int row, int col, int rowKoniec,int colKoniec);
     void placeFoodOnBoard();
 
 
@@ -35,6 +37,7 @@ public:
     int getWidth() const;
     int getHeight() const;
     char getCharInfo(int x,int y);
+   void setFoodFalse(int row,int col);
 
 
 

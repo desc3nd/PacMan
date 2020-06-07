@@ -6,49 +6,48 @@
 #include "PacView.h"
 #include "PacSFMLGraphic.h"
 #include "PacSFMLEvent.h"
+#include"PacGameMenager.h"
 int main() {
     PacBoard board;
     srand(time(NULL));
 //board.Debug_Display();
     PacMan Pacman(board);
-    Pacman.DebugDisplayPac();
-    Pacman.PacMovement('w');
-    Pacman.PacMovement('w');
-    Pacman.PacMovement('w');
-    Pacman.PacMovement('w');
-    std::cout << std::endl;
-    std::cout << std::endl;
-    Pacman.DebugDisplayPac();
     PacGhosts ghost(board);
     PacView View(Pacman, ghost, board);
     View.Display();
     PacSFMLGraphic graphic(board, Pacman, ghost);
     PacSFMLEvent LetsDoThis(graphic,Pacman);
-    sf::Clock clk;
+    sf::Clock clk1;
+    sf::Clock clk2;
+    PacGameMenager gameMenager(Pacman,ghost,board);
     sf::RenderWindow win(sf::VideoMode(graphic.getScreenWidth(), graphic.getScreenHeight()), "PACMAN");
     win.setVerticalSyncEnabled(true);
     sf::Event event;
     while (win.isOpen()) {
         while (win.pollEvent(event)) {
             LetsDoThis.PacManMove();
-            graphic.drawBoard();
             if (event.type == sf::Event::Closed) {
                 win.close();
             }
 
         }
-        if(clk.getElapsedTime().asSeconds()>0.5)
+        if(clk1.getElapsedTime().asSeconds()>1)
         {
-            ghost.ghostsMovement(0);
-            ghost.ghostsMovement(2);
-            ghost.ghostsMovement(1);
+            ghost.ghostMove(0);
+            ghost.ghostMove(1);
+            ghost.ghostMove(2);
+          ghost.ghostMove(3);
             LetsDoThis.SelfMove();
+            gameMenager.play();
             graphic.drawBoard();
-            clk.restart();
+            clk1.restart();
+
         }
         win.clear(sf::Color::Black);
         win.draw(graphic);
         win.display();
     }
+    std::cout<<gameMenager.getPoints();
     View.Display();
+    board.Debug_Display();
 }

@@ -6,16 +6,29 @@
 #define LOL_PACGHOSTS_H
 #include"PacBoard.h"
 #include "PacMan.h"
+#include<vector>
+struct direction
+        {
+    bool up,down,right,left;
+};
 class PacGhosts {
 field board [100][100];
 PacBoard &tab;
 int height;
 int width;
-PacCoord ghostCoord[3];
+int nr;
+int licznik;
+direction direction;
+PacCoord ghostCoord[4];
+
+
+void ghostsMovement( int nrOfGhost);
 public:
     explicit PacGhosts(PacBoard &x);
-  void ghostsMovement( int nrOfGhost);
+
     bool isGhost(int row,int col);
+    void gostStart();
+   void ghostMove(int nrOfGhost);
 };
 
 
