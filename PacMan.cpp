@@ -11,16 +11,15 @@ PacMan::PacMan(PacBoard &x):tab(x) {
     board[pacCoord.Row][pacCoord.Col].hasPacman=true;
     width=tab.getWidth();
     height=tab.getHeight();
+
+
 }
 
 void PacMan::PacMovement(char klawisz)
 {
-//    if(klawisz!='w' || klawisz!='a' || klawisz!='s' || klawisz!='d' )
-//    {
-//        return;
-//    }
 
 board[pacCoord.Row][pacCoord.Col].hasPacman=false;
+
     if(klawisz=='w')
     {
         if(tab.getCharInfo(pacCoord.Row-1,pacCoord.Col)=='*')
@@ -57,7 +56,7 @@ board[pacCoord.Row][pacCoord.Col].hasPacman=false;
         }
         pacCoord.Col++;
     }
-
+    tp();
     board[pacCoord.Row][pacCoord.Col].hasPacman=true;
 
 }
@@ -75,7 +74,6 @@ void PacMan::DebugDisplayPac() {
         }
     std::cout<<std::endl;
     }
-
 }
 
 bool PacMan::getCharInfo(int row, int col) {
@@ -85,3 +83,28 @@ bool PacMan::getCharInfo(int row, int col) {
    }
    return false;
 }
+void PacMan::tp() {
+    if(pacCoord.Row==15 && pacCoord.Col==1)
+    {
+       // board[15][0].hasPacman=false;
+        pacCoord.Row=15;
+        pacCoord.Col=27;
+    }
+    if(pacCoord.Row==15 && pacCoord.Col==28)
+    {
+       //  board[15][29].hasPacman=false;
+        pacCoord.Row=15;
+        pacCoord.Col=2;
+    }
+
+
+}
+
+void PacMan::DefaultSettings() {
+    board[pacCoord.Row][pacCoord.Col].hasPacman=false;
+    pacCoord.Col=15;
+    pacCoord.Row=21;
+    board[pacCoord.Row][pacCoord.Col].hasPacman=true;
+
+}
+

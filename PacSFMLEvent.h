@@ -11,10 +11,18 @@ class PacSFMLEvent {
     PacMan &pacman;
     PacSFMLGraphic &graphic;
     char move;
+    bool enter;
+    bool again;
+
 public:
     PacSFMLEvent(PacSFMLGraphic &graph, PacMan &pac);
     void PacManMove();
     void SelfMove();
+    void startGame();
+    bool getEnterStatus();
+    bool getAgainStatus();
+    void restart();
+    void DefaultSettings();
 };
 
 

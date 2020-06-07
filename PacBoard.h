@@ -38,6 +38,7 @@ public:
     int getHeight() const;
     char getCharInfo(int x,int y);
    void setFoodFalse(int row,int col);
+   void DefaultSettings();
 
 
 

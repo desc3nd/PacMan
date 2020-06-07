@@ -9,8 +9,8 @@ PacGameMenager::PacGameMenager(PacMan &pac, PacGhosts &ghost, PacBoard &tab):pac
     height=board.getHeight();
     width=board.getWidth();
     points=0;
-    lives=3;
     status=Running;
+    refreshSpeed=0.5;
 }
 
 void PacGameMenager::play() {
@@ -20,7 +20,7 @@ void PacGameMenager::play() {
         {
             if(pacMan.getCharInfo(row, col) && ghosts.isGhost(row, col))
             {
-                lives--;
+                status=Lost;
             }
             if(pacMan.getCharInfo(row,col) && board.getCharInfo(row,col)=='f')
             {
@@ -30,20 +30,31 @@ void PacGameMenager::play() {
         }
 
     }
-    if(lives<=0)
-    {
-        status=Lost;
-    }
+
 }
 
 GameStatus PacGameMenager::getGameStatus() {
     return status;
 }
 
-int PacGameMenager::getLives() {
-    return lives;
-}
-
 int PacGameMenager::getPoints() {
     return points;
 }
+
+int PacGameMenager::getRefreshSpeed() {
+    return refreshSpeed;
+}
+
+void PacGameMenager::DefaultSettings() {
+    status=Running;
+    if(points<330)
+    {
+        points=0;
+    }
+
+
+
+}
+
+
+

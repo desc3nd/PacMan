@@ -17,18 +17,19 @@ PacBoard &tab;
 int height;
 int width;
 int nr;
-int licznik;
-direction direction;
-PacCoord ghostCoord[4];
-
+int licznik[7];
+direction direction[7];
+PacCoord ghostCoord[7];
+void checkLicznik(int nrOfGhost);
 
 void ghostsMovement( int nrOfGhost);
 public:
     explicit PacGhosts(PacBoard &x);
-
     bool isGhost(int row,int col);
-    void gostStart();
+    void tp(int nrOfGhost);
    void ghostMove(int nrOfGhost);
+   void DefaultSettings();
+   void DebugGhost();
 };
 
 

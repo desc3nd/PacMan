@@ -8,31 +8,40 @@
 #include "PacBoard.h"
 #include "PacGhosts.h"
 #include "PacMan.h"
-
+#include "PacGameMenager.h"
 
 class PacSFMLGraphic: public sf::Drawable {
 PacBoard &board;
 PacMan &pacMan;
 PacGhosts &ghosts;
+PacGameMenager &ctrl;
 int height;
 int width;
 int screenWidth;
 int screenHeight;
 int numberOfFood;
 int numberOfTraps;
-
+sf::Texture texture;
+sf::Texture texture2;
+sf::Font font;
+sf::Text point;
+sf::RectangleShape menu;
+sf::RectangleShape gameOver;
 sf::CircleShape points[100];
 sf::CircleShape pacek;
 sf::CircleShape ghostek[10];
 sf::RectangleShape traps[700];
 sf::RectangleShape food[1000];
-
+void drawPoints();
 public:
-    PacSFMLGraphic(PacBoard &board, PacMan &pac, PacGhosts &ghost );
+    PacSFMLGraphic(PacBoard &board, PacMan &pac, PacGhosts &ghost, PacGameMenager &menager );
     int getScreenWidth();
     int getScreenHeight();
     void draw(sf::RenderTarget& target,sf::RenderStates states) const override;
     void drawBoard();
+    void drawMenu();
+    void drawGameOver();
+
 };
 
 

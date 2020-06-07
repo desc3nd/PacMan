@@ -7,6 +7,7 @@
 #include "PacSFMLGraphic.h"
 #include "PacSFMLEvent.h"
 #include"PacGameMenager.h"
+
 int main() {
     PacBoard board;
     srand(time(NULL));
@@ -15,33 +16,62 @@ int main() {
     PacGhosts ghost(board);
     PacView View(Pacman, ghost, board);
     View.Display();
-    PacSFMLGraphic graphic(board, Pacman, ghost);
-    PacSFMLEvent LetsDoThis(graphic,Pacman);
+    PacGameMenager gameMenager(Pacman,ghost,board);
+    PacSFMLGraphic graphic(board, Pacman, ghost,gameMenager);
+    PacSFMLEvent ctrl(graphic,Pacman);
     sf::Clock clk1;
     sf::Clock clk2;
-    PacGameMenager gameMenager(Pacman,ghost,board);
     sf::RenderWindow win(sf::VideoMode(graphic.getScreenWidth(), graphic.getScreenHeight()), "PACMAN");
     win.setVerticalSyncEnabled(true);
     sf::Event event;
     while (win.isOpen()) {
         while (win.pollEvent(event)) {
-            LetsDoThis.PacManMove();
-            if (event.type == sf::Event::Closed) {
+
+            if (event.type == sf::Event::Closed ) {
                 win.close();
             }
-
+            ctrl.startGame();
+            if(ctrl.getEnterStatus())
+            {
+                ctrl.PacManMove();
+                graphic.drawBoard();
+            }
         }
-        if(clk1.getElapsedTime().asSeconds()>1)
+        if(clk1.getElapsedTime().asSeconds()>0.4 && ctrl.getEnterStatus() &&  gameMenager.getGameStatus()!=Lost)
         {
-            ghost.ghostMove(0);
-            ghost.ghostMove(1);
-            ghost.ghostMove(2);
-          ghost.ghostMove(3);
-            LetsDoThis.SelfMove();
-            gameMenager.play();
-            graphic.drawBoard();
-            clk1.restart();
+            for(int i=0; i<6;i++)
+            {
+                ghost.ghostMove(i);
+                gameMenager.play();
+            }
+            ctrl.SelfMove();
 
+            clk1.restart();
+            graphic.drawBoard();
+        }
+        gameMenager.play();
+        if(gameMenager.getGameStatus()==Lost)
+        {
+            graphic.drawGameOver();
+            ctrl.restart();
+        }
+        if(ctrl.getAgainStatus() && gameMenager.getGameStatus()==Lost)
+        {
+            board.DefaultSettings();
+            Pacman.DefaultSettings();
+            ghost.DefaultSettings();
+            gameMenager.DefaultSettings();
+            ctrl.DefaultSettings();
+            graphic.drawBoard();
+        }
+        if(gameMenager.getPoints()>=330)
+        {
+            board.DefaultSettings();
+            Pacman.DefaultSettings();
+            ghost.DefaultSettings();
+            gameMenager.DefaultSettings();
+            ctrl.DefaultSettings();
+            graphic.drawBoard();
         }
         win.clear(sf::Color::Black);
         win.draw(graphic);

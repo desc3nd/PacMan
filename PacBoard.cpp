@@ -55,6 +55,8 @@ for_draw(26,27,32,28);
 placeFoodOnBoard();
 //erase(11,11,20,19);
 erase(10,13,11,17);
+erase(15,0,16,1);
+erase(15,29,16,30);
 }
 
 void PacBoard::Debug_Display() const {
@@ -153,5 +155,10 @@ void PacBoard::placeFoodOnBoard() {
 
 void PacBoard::setFoodFalse(int row, int col) {
     board[row][col].hasFood=false;
+
+}
+
+void PacBoard::DefaultSettings() {
+    placeFoodOnBoard();
 
 }

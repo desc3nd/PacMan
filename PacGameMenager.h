@@ -19,11 +19,14 @@ class PacGameMenager {
     int points;
     int lives;
     int width;
+    int refreshSpeed;
 public:
     void play();
     GameStatus getGameStatus();
     int getLives();
     int getPoints();
+    int getRefreshSpeed();
+    void DefaultSettings();
     PacGameMenager(PacMan &pac,PacGhosts &ghost, PacBoard &tab);
 
     //field board[100][100];

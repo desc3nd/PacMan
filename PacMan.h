@@ -16,11 +16,13 @@ class PacMan {
   PacCoord pacCoord;
    int height;
    int width;
+   void tp();
 public:
 explicit PacMan(PacBoard &x);
 void PacMovement(char klawisz);
 void DebugDisplayPac();
 bool getCharInfo(int row, int col);
+void DefaultSettings();
 };
 
 

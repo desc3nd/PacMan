@@ -22,15 +22,15 @@ void PacView::Display() {
             }
             if(pacBoard.getCharInfo(row,col)=='f')
             {
-                std::cout<<"0";
+                std::cout<<"F ";
             }
             if(pacMan.getCharInfo(row,col))
             {
-                std::cout<<"M";
+                std::cout<<"M ";
             }
             if(pacGhosts.isGhost(row,col))
             {
-                std::cout<<"G";
+                std::cout<<"G ";
             }
         }
         std::cout<<std::endl;
