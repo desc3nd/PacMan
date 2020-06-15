@@ -1,5 +1,6 @@
 
 #include <iostream>
+#include <SFML/Window/Keyboard.hpp>
 #include "PacSFMLMusic.h"
 
 PacSFMLMusic::PacSFMLMusic(PacBoard &Board, PacMan &pac, PacGhosts &ghost, PacGameMenager &menager):board(Board),pacMan(pac),ghosts(ghost),ctrl(menager)
@@ -15,6 +16,7 @@ PacSFMLMusic::PacSFMLMusic(PacBoard &Board, PacMan &pac, PacGhosts &ghost, PacGa
     sound[2].setBuffer(buffer[2]);
     sound[3].setBuffer(buffer[3]);
     sound[4].setBuffer(buffer[4]);
+    mute=false;
 }
 
 void PacSFMLMusic::soundEffect() {
@@ -22,19 +24,19 @@ void PacSFMLMusic::soundEffect() {
     {
         for(int col=0; col<width; col++)
         {
-            if(pacMan.isPacman(row, col) && ghosts.isGhost(row, col) && ctrl.getEatableStatus())
+            if(pacMan.isPacman(row, col) && ghosts.isGhost(row, col) && ctrl.getEatableStatus() && !mute)
             {
                 sound[3].play();
             }
-            if(pacMan.isPacman(row, col) && ghosts.isGhost(row, col) && !ctrl.getEatableStatus())
+            if(pacMan.isPacman(row, col) && ghosts.isGhost(row, col) && !ctrl.getEatableStatus() && !mute)
             {
                 sound[2].play();
             }
-            if(pacMan.isPacman(row, col) && board.getCharInfo(row, col) == 'p')
+            if(pacMan.isPacman(row, col) && board.getCharInfo(row, col) == 'p' && !mute)
             {
                 sound[0].play();
             }
-            if(pacMan.isPacman(row, col) && board.getCharInfo(row, col) == 'f')
+            if(pacMan.isPacman(row, col) && board.getCharInfo(row, col) == 'f' &&!mute)
             {
                 sound[1].play();
             }
@@ -43,7 +45,22 @@ void PacSFMLMusic::soundEffect() {
 }
 
 void PacSFMLMusic::playMusic() {
-    sound[4].setVolume(50.f);
-    sound[4].setLoop(true);
-    sound[4].play();
+    if(!mute) {
+        sound[4].setVolume(50.f);
+        sound[4].setLoop(true);
+        sound[4].play();
+    }
+}
+
+void PacSFMLMusic::stopStartMusic() {
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::M))
+    {
+        mute=true;
+        sound[4].stop();
+    }
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::U))
+    {
+        mute=false;
+        sound[4].play();
+    }
 }

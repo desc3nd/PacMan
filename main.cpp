@@ -30,6 +30,7 @@ int main() {
             if (event.type == sf::Event::Closed ) {
                 win.close();
             }
+
             ctrl.startGame();
             if(ctrl.getEnterStatus())
             {
@@ -50,6 +51,7 @@ int main() {
             clk1.restart();
             graphic.drawBoard();
         }
+        music.stopStartMusic();
         music.soundEffect();
         gameMenager.play();
         if(gameMenager.getGameStatus()==Lost)
