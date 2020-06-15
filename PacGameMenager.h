@@ -7,7 +7,8 @@
 #include "PacView.h"
 #include "PacBoard.h"
 enum GameStatus{Running,Lost, Win};
-class PacGameMenager {
+class PacGameMenager
+{
     PacMan &pacMan;
     PacGhosts &ghosts;
     PacBoard &board;

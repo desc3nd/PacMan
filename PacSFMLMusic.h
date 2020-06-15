@@ -6,7 +6,8 @@
 #include "PacMan.h"
 #include "PacGameMenager.h"
 #include <SFML/Audio.hpp>
-class PacSFMLMusic {
+class PacSFMLMusic
+{
     int height;
     int width;
     PacBoard &board;

@@ -5,16 +5,16 @@ PacGameMenager::PacGameMenager(PacMan &pac, PacGhosts &ghost, PacBoard &tab):pac
     height=board.getHeight();
     width=board.getWidth();
     points=0;
-    foodLeft=325;
+    foodLeft=330;
     status=Running;
-    refreshSpeed=0.5;
+    refreshSpeed=0.35;
     eatable=false;
     eatableGhostsTime=40;
-    nrOfLoop=40;
-
+    nrOfLoop=30;
 }
 
-void PacGameMenager::play() {
+void PacGameMenager::play()
+{
     for(int row=0; row<height; row++)
     {
         for(int col=0; col<width; col++)
@@ -49,7 +49,8 @@ void PacGameMenager::play() {
 
 }
 
-GameStatus PacGameMenager::getGameStatus()  {
+GameStatus PacGameMenager::getGameStatus()
+{
     if(foodLeft<=0)
     {
         status=Win;
@@ -57,15 +58,18 @@ GameStatus PacGameMenager::getGameStatus()  {
     return status;
 }
 
-int PacGameMenager::getPoints() const {
+int PacGameMenager::getPoints() const
+{
     return points;
 }
 
-float PacGameMenager::getRefreshSpeed() const {
+float PacGameMenager::getRefreshSpeed() const
+{
     return refreshSpeed;
 }
 
-void PacGameMenager::DefaultSettings() {
+void PacGameMenager::DefaultSettings()
+{
     if(status==Lost)
     {
         points=0;
@@ -73,7 +77,8 @@ void PacGameMenager::DefaultSettings() {
     status=Running;
 }
 
-void PacGameMenager::eatableGhosts() {
+void PacGameMenager::eatableGhosts()
+{
 
     eatableGhostsTime++;
     if(eatableGhostsTime<=nrOfLoop)
@@ -87,7 +92,8 @@ void PacGameMenager::eatableGhosts() {
 
 }
 
-bool PacGameMenager::getEatableStatus() const {
+bool PacGameMenager::getEatableStatus() const
+{
     return eatable;
 }
 

@@ -2,21 +2,17 @@
 #include "PacMan.h"
 #include<iostream>
 
-PacMan::PacMan(PacBoard &x):tab(x) {
+PacMan::PacMan(PacBoard &x):tab(x)
+{
     pacCoord.Col=15;
     pacCoord.Row=21;
     board[pacCoord.Row][pacCoord.Col].hasPacman=true;
     width=tab.getWidth();
     height=tab.getHeight();
-
-
 }
-
 void PacMan::PacMovement(char klawisz)
 {
-
 board[pacCoord.Row][pacCoord.Col].hasPacman=false;
-
     if(klawisz=='w')
     {
         if(tab.getCharInfo(pacCoord.Row-1,pacCoord.Col)=='*')
@@ -58,7 +54,8 @@ board[pacCoord.Row][pacCoord.Col].hasPacman=false;
 
 }
 
-void PacMan::DebugDisplayPac() const {
+void PacMan::DebugDisplayPac() const
+{
     for(int row=0; row<width;row++)
     {
         for( int col=0; col<height; col++)
@@ -73,14 +70,21 @@ void PacMan::DebugDisplayPac() const {
     }
 }
 
-bool PacMan::isPacman(int row, int col) const {
+bool PacMan::isPacman(int row, int col) const
+{
+    if(row<0 || col<0 || col>=width  || row>=height)
+    {
+        std::cerr<<"blad w podanych parametrach przy isPacman";
+        return false;
+    }
    if(board[row][col].hasPacman)
    {
        return true;
    }
    return false;
 }
-void PacMan::tp() {
+void PacMan::tp()
+{
     if(pacCoord.Row==15 && pacCoord.Col==1)
     {
         pacCoord.Row=15;
@@ -95,7 +99,8 @@ void PacMan::tp() {
 
 }
 
-void PacMan::DefaultSettings() {
+void PacMan::DefaultSettings()
+{
     board[pacCoord.Row][pacCoord.Col].hasPacman=false;
     pacCoord.Col=15;
     pacCoord.Row=21;

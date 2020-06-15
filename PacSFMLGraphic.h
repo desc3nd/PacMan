@@ -10,7 +10,8 @@
 #include "PacMan.h"
 #include "PacGameMenager.h"
 
-class PacSFMLGraphic: public sf::Drawable {
+class PacSFMLGraphic: public sf::Drawable
+{
 PacBoard &board;
 PacMan &pacMan;
 PacGhosts &ghosts;
@@ -43,7 +44,6 @@ public:
     void drawBoard();
     void drawMenu();
     void drawGameOver();
-
 };
 
 

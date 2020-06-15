@@ -19,16 +19,18 @@ PacSFMLMusic::PacSFMLMusic(PacBoard &Board, PacMan &pac, PacGhosts &ghost, PacGa
     mute=false;
 }
 
-void PacSFMLMusic::soundEffect() {
+void PacSFMLMusic::soundEffect()
+{
+    bool eatable=ctrl.getEatableStatus();
     for(int row=0; row<height; row++)
     {
         for(int col=0; col<width; col++)
         {
-            if(pacMan.isPacman(row, col) && ghosts.isGhost(row, col) && ctrl.getEatableStatus() && !mute)
+            if(pacMan.isPacman(row, col) && ghosts.isGhost(row, col) && eatable && !mute)
             {
                 sound[3].play();
             }
-            if(pacMan.isPacman(row, col) && ghosts.isGhost(row, col) && !ctrl.getEatableStatus() && !mute)
+            if(pacMan.isPacman(row, col) && ghosts.isGhost(row, col) && !eatable && !mute)
             {
                 sound[2].play();
             }
@@ -44,7 +46,8 @@ void PacSFMLMusic::soundEffect() {
     }
 }
 
-void PacSFMLMusic::playMusic() {
+void PacSFMLMusic::playMusic()
+{
     if(!mute) {
         sound[4].setVolume(50.f);
         sound[4].setLoop(true);
@@ -52,7 +55,8 @@ void PacSFMLMusic::playMusic() {
     }
 }
 
-void PacSFMLMusic::stopStartMusic() {
+void PacSFMLMusic::stopStartMusic()
+{
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::M))
     {
         mute=true;
@@ -61,6 +65,7 @@ void PacSFMLMusic::stopStartMusic() {
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::U))
     {
         mute=false;
+
         sound[4].play();
     }
 }

@@ -2,7 +2,8 @@
 #include "PacSFMLGraphic.h"
 #include<iostream>
 #include<string>
-PacSFMLGraphic::PacSFMLGraphic(PacBoard &Board, PacMan &pac, PacGhosts &ghost, PacGameMenager &menager):board(Board),pacMan(pac),ghosts(ghost),ctrl(menager) {
+PacSFMLGraphic::PacSFMLGraphic(PacBoard &Board, PacMan &pac, PacGhosts &ghost, PacGameMenager &menager):board(Board),pacMan(pac),ghosts(ghost),ctrl(menager)
+{
     width=board.getWidth();
     height=board.getHeight();
     screenHeight=680;
@@ -17,18 +18,20 @@ PacSFMLGraphic::PacSFMLGraphic(PacBoard &Board, PacMan &pac, PacGhosts &ghost, P
         std::cerr<<"blad przy wczytaniu tekstury lub fontu";
     }
     drawMenu();
-
 }
 
-int PacSFMLGraphic::getScreenWidth() const{
+int PacSFMLGraphic::getScreenWidth() const
+{
     return screenWidth;
 }
 
-int PacSFMLGraphic::getScreenHeight() const {
+int PacSFMLGraphic::getScreenHeight() const
+{
     return screenHeight;
 }
 
-void PacSFMLGraphic::draw(sf::RenderTarget &target, sf::RenderStates states) const {
+void PacSFMLGraphic::draw(sf::RenderTarget &target, sf::RenderStates states) const
+{
 target.draw(pacek);
 for(int i=0;i<numberOfTraps;i++)
 {
@@ -113,11 +116,12 @@ void PacSFMLGraphic::drawBoard()
                 {
                     nrGhostka=0;
                 }
-            } else{
+            }
+            else
+                {
                 food[nrFood].setFillColor(sf::Color::Transparent);
                 premiumFood[prem].setFillColor(sf::Color::Transparent);
             }
-
         tempWidth+=20;
         }
         tempWidth=5;
@@ -127,18 +131,22 @@ void PacSFMLGraphic::drawBoard()
     point.setCharacterSize(0);
 }
 
-void PacSFMLGraphic::drawMenu() {
+void PacSFMLGraphic::drawMenu()
+{
 menu.setSize(sf::Vector2f(600,680));
     menu.setTexture(&texture);
+
 }
-void PacSFMLGraphic::drawGameOver() {
+void PacSFMLGraphic::drawGameOver()
+{
    gameOver.setPosition(0,0);
     gameOver.setSize(sf::Vector2f(610,680));
     gameOver.setTexture(&texture2);
     drawPoints();
 }
 
-void PacSFMLGraphic::drawPoints() {
+void PacSFMLGraphic::drawPoints()
+{
     point.setFont(font);
     point.setFillColor(sf::Color::White);
     point.setCharacterSize(40);
@@ -146,5 +154,4 @@ void PacSFMLGraphic::drawPoints() {
     int outcome=ctrl.getPoints();
     std::string str= std::to_string(outcome);
     point.setString(str);
-
 }

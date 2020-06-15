@@ -8,8 +8,8 @@
 #include "PacSFMLEvent.h"
 #include"PacGameMenager.h"
 #include "PacSFMLMusic.h"
-int main() {
-
+int main()
+{
     PacBoard board;
     srand(time(NULL));
     PacMan Pacman(board);
@@ -24,13 +24,15 @@ int main() {
     win.setVerticalSyncEnabled(true);
     sf::Event event;
     music.playMusic();
-    while (win.isOpen()) {
-
-        while (win.pollEvent(event)) {
-            if (event.type == sf::Event::Closed ) {
+    board.Debug_Display();
+    while (win.isOpen())
+    {
+        while (win.pollEvent(event))
+        {
+            if (event.type == sf::Event::Closed )
+            {
                 win.close();
             }
-
             ctrl.startGame();
             if(ctrl.getEnterStatus())
             {
@@ -40,7 +42,7 @@ int main() {
         }
         if(clk1.getElapsedTime().asSeconds()>gameMenager.getRefreshSpeed() && ctrl.getEnterStatus() &&  gameMenager.getGameStatus()!=Lost)
         {
-            for(int i=0; i<6;i++)
+            for(int i=0; i<ghost.getNumberOfGhosts();i++)
             {
                 ghost.ghostMove(i);
                 graphic.drawBoard();
@@ -68,7 +70,7 @@ int main() {
             ctrl.DefaultSettings();
             graphic.drawBoard();
         }
-        if(gameMenager.getGameStatus()==Win)
+        if(ctrl.getAgainStatus() && gameMenager.getGameStatus()==Win)
         {
             board.DefaultSettings();
             Pacman.DefaultSettings();

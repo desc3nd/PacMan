@@ -6,7 +6,8 @@
 #include "PacGhosts.h"
 #include "PacBoard.h"
 
-class PacView {
+class PacView
+{
     int height;
     int width;
     PacMan &pacMan;

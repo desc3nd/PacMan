@@ -14,16 +14,14 @@ struct field
     bool isEmpty;
 };
 
-class PacBoard {
-    field board[100][100]{};
-
+class PacBoard
+{
+    field board[100][100];
     int height;
     int width;
-    void for_draw(int row, int col, int rowKoniec,int colKoniec);
-    void erase(int row, int col, int rowKoniec,int colKoniec);
+   //void for_draw(int row, int col, int rowKoniec,int colKoniec);
+   // void erase(int row, int col, int rowKoniec,int colKoniec);
     void placeFoodOnBoard();
-
-
 public:
     PacBoard();
     void Debug_Display() const;
@@ -33,9 +31,6 @@ public:
    void setFoodFalse(int row,int col);
    void DefaultSettings();
    void setPremiumFoodFalse(int row, int col);
-
-
-
 };
 
 

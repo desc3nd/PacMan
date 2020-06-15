@@ -5,7 +5,8 @@
 #include "PacMan.h"
 #include "PacSFMLGraphic.h"
 
-class PacSFMLEvent {
+class PacSFMLEvent
+{
     PacMan &pacman;
     PacSFMLGraphic &graphic;
     char move;

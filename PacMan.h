@@ -4,11 +4,13 @@
 #define LOL_PACMAN_H
 #include "PacBoard.h"
 #include "PacBoard.h"
-struct PacCoord{
+struct PacCoord
+{
     int Col;
     int Row;
 };
-class PacMan {
+class PacMan
+{
     PacBoard &tab;
     field board[100][100];
   PacCoord pacCoord;

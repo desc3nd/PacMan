@@ -7,7 +7,8 @@ enter=false;
 again=false;
 }
 
-void PacSFMLEvent::PacManMove() {
+void PacSFMLEvent::PacManMove()
+{
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
     {
         move='w';
@@ -27,13 +28,15 @@ void PacSFMLEvent::PacManMove() {
 
 }
 
-void PacSFMLEvent::SelfMove() {
+void PacSFMLEvent::SelfMove()
+{
     PacManMove();
   pacman.PacMovement(move);
 
 }
 
-void PacSFMLEvent::startGame()  {
+void PacSFMLEvent::startGame()
+{
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
     {
         enter=true;
@@ -41,15 +44,18 @@ void PacSFMLEvent::startGame()  {
 
 }
 
-bool PacSFMLEvent::getEnterStatus() const {
+bool PacSFMLEvent::getEnterStatus() const
+{
     return enter;
 }
 
-bool PacSFMLEvent::getAgainStatus() const {
+bool PacSFMLEvent::getAgainStatus() const
+{
     return again;
 }
 
-void PacSFMLEvent::restart() {
+void PacSFMLEvent::restart()
+{
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
     {
         again=true;
@@ -57,7 +63,8 @@ void PacSFMLEvent::restart() {
 
 }
 
-void PacSFMLEvent::DefaultSettings() {
+void PacSFMLEvent::DefaultSettings()
+{
     again=false;
 }
 

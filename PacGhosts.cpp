@@ -4,20 +4,21 @@
 #include<cstdlib>
 #include<time.h>
 #include <iostream>
-PacGhosts::PacGhosts(PacBoard &x):tab(x) {
-    nrOfGhosts=7;
-for(int i=0;i<nrOfGhosts;i++)
+PacGhosts::PacGhosts(PacBoard &x):tab(x)
 {
-    width=tab.getWidth();
-    height=tab.getHeight();
-    direction[i].up=true;
-    direction[i].down=true;
-    direction[i].right=true;
-    direction[i].left=true;
-    licznik[i]=1;
-}
+    amountOfGhosts=6;
     height=tab.getHeight();
     width=tab.getWidth();
+    for(int i=0; i < amountOfGhosts; i++)
+    {
+        width=tab.getWidth();
+        height=tab.getHeight();
+        direction[i].up=true;
+        direction[i].down=true;
+        direction[i].right=true;
+        direction[i].left=true;
+        licznik[i]=1;
+    }
     ghostCoord[0].Row=16;
     ghostCoord[0].Col=5;
     ghostCoord[1].Row=16;
@@ -30,20 +31,21 @@ for(int i=0;i<nrOfGhosts;i++)
     ghostCoord[4].Col=16;
     ghostCoord[5].Row=32;
     ghostCoord[5].Col=15;
-
-  board[ghostCoord[0].Row][ghostCoord[0].Col].hasGhost=true;
-   board[ghostCoord[1].Row][ghostCoord[1].Col].hasGhost=true;
-   board[ghostCoord[2].Row][ghostCoord[2].Col].hasGhost=true;
-   board[ghostCoord[3].Row][ghostCoord[3].Col].hasGhost=true;
+    board[ghostCoord[0].Row][ghostCoord[0].Col].hasGhost=true;
+    board[ghostCoord[1].Row][ghostCoord[1].Col].hasGhost=true;
+    board[ghostCoord[2].Row][ghostCoord[2].Col].hasGhost=true;
+    board[ghostCoord[3].Row][ghostCoord[3].Col].hasGhost=true;
     board[ghostCoord[4].Row][ghostCoord[4].Col].hasGhost=true;
     board[ghostCoord[5].Row][ghostCoord[5].Col].hasGhost=true;
-    nr=rand()%4+1;
-
-
 }
 
-void PacGhosts::ghostsMovement(int nrOfGhost) {
-    if(licznik[nrOfGhost]==4)
+void PacGhosts::checkDirection(int nrOfGhost)
+{
+    if(amountOfGhosts < 0 || amountOfGhosts>=7)
+    {
+        return;
+    }
+    if(licznik[nrOfGhost]>=4)
     {
         licznik[nrOfGhost]=0;
     }
@@ -51,17 +53,16 @@ void PacGhosts::ghostsMovement(int nrOfGhost) {
     {
         licznik[nrOfGhost]=1;
     }
-
    if(tab.getCharInfo(ghostCoord[nrOfGhost].Row,ghostCoord[nrOfGhost].Col-1)=='*' || board[ghostCoord[nrOfGhost].Row][ghostCoord[nrOfGhost].Col-1].hasGhost)
-   {
-    direction[nrOfGhost].left=false;
-    licznik[nrOfGhost]++;
-   }
- if(tab.getCharInfo(ghostCoord[nrOfGhost].Row,ghostCoord[nrOfGhost].Col+1)=='*'||  board[ghostCoord[nrOfGhost].Row][ghostCoord[nrOfGhost].Col+1].hasGhost)
-   {
+    {
+       direction[nrOfGhost].left=false;
+       licznik[nrOfGhost]++;
+    }
+    if(tab.getCharInfo(ghostCoord[nrOfGhost].Row,ghostCoord[nrOfGhost].Col+1)=='*'||  board[ghostCoord[nrOfGhost].Row][ghostCoord[nrOfGhost].Col+1].hasGhost)
+    {
        direction[nrOfGhost].right=false;
        licznik[nrOfGhost]++;
-   }
+    }
    if(tab.getCharInfo(ghostCoord[nrOfGhost].Row+1,ghostCoord[nrOfGhost].Col)=='*' ||  board[ghostCoord[nrOfGhost].Row +1][ghostCoord[nrOfGhost].Col].hasGhost)
     {
         direction[nrOfGhost].down=false;
@@ -72,18 +73,24 @@ void PacGhosts::ghostsMovement(int nrOfGhost) {
         direction[nrOfGhost].up=false;
         licznik[nrOfGhost]++;
     }
-   if(licznik[nrOfGhost]==4)
-   {
+   if(licznik[nrOfGhost]>=4)
+    {
        direction[nrOfGhost].left=true;
        direction[nrOfGhost].right=true;
        direction[nrOfGhost].down=true;
        direction[nrOfGhost].up=true;
-       ghostsMovement(nrOfGhost);
-   }
+       checkDirection(nrOfGhost);
+    }
 
 }
 
-bool PacGhosts::isGhost(int row,int col) const {
+bool PacGhosts::isGhost(int row,int col) const
+{
+    if(row<0 || col<0 || col>=width  || row>=height)
+    {
+        std::cerr<<"blad w podanych parametrach przy isghosts";
+        return false;
+    }
  if(board[row][col].hasGhost)
  {
      return true;
@@ -91,19 +98,19 @@ bool PacGhosts::isGhost(int row,int col) const {
  return false;
 }
 
-
-void PacGhosts::ghostMove(int nrOfGhost ) {
-   ghostsMovement(nrOfGhost);
+void PacGhosts::ghostMove(int nrOfGhost )
+{
+    checkDirection(nrOfGhost);
    if(licznik[nrOfGhost]>=5)
    {
        return;
    }
-       srand(time(nullptr));
-
-while(true) {
+while(true)
+{
     nr=rand()%4+1;
     board[ghostCoord[nrOfGhost].Row][ghostCoord[nrOfGhost].Col].hasGhost = false;
-    if (direction[nrOfGhost].up == true && nr == 1) {
+    if (direction[nrOfGhost].up == true && nr == 1)
+    {
         ghostCoord[nrOfGhost].Row--;
         board[ghostCoord[nrOfGhost].Row][ghostCoord[nrOfGhost].Col].hasGhost = true;
         tp(nrOfGhost);
@@ -111,28 +118,22 @@ while(true) {
         direction[nrOfGhost].right = true;
         direction[nrOfGhost].left = true;
         direction[nrOfGhost].down = false;
-        if(licznik[nrOfGhost]==4)
-        {
-            direction[nrOfGhost].down=true;
-        }
         return;
     }
-    if (direction[nrOfGhost].right == true && nr == 2) {
+    if (direction[nrOfGhost].right == true && nr == 2)
+    {
         ghostCoord[nrOfGhost].Col++;
         board[ghostCoord[nrOfGhost].Row][ghostCoord[nrOfGhost].Col].hasGhost = true;
-      tp(nrOfGhost);
+        tp(nrOfGhost);
         direction[nrOfGhost].up = true;
         direction[nrOfGhost].right = true;
         direction[nrOfGhost].down = true;
         direction[nrOfGhost].left = false;
-        if(licznik[nrOfGhost]==4)
-        {
-            direction[nrOfGhost].left=true;
-        }
         return;
 
     }
-    if (direction[nrOfGhost].down == true && nr == 3) {
+    if (direction[nrOfGhost].down == true && nr == 3)
+    {
         ghostCoord[nrOfGhost].Row++;
         board[ghostCoord[nrOfGhost].Row][ghostCoord[nrOfGhost].Col].hasGhost = true;
         tp(nrOfGhost);
@@ -140,24 +141,17 @@ while(true) {
         direction[nrOfGhost].right = true;
         direction[nrOfGhost].left = true;
         direction[nrOfGhost].up = false;
-        if(licznik[nrOfGhost]==4)
-        {
-            direction[nrOfGhost].up=true;
-        }
         return;
     }
-    if (direction[nrOfGhost].left == true && nr == 4) {
+    if (direction[nrOfGhost].left == true && nr == 4)
+    {
         ghostCoord[nrOfGhost].Col--;
         board[ghostCoord[nrOfGhost].Row][ghostCoord[nrOfGhost].Col].hasGhost = true;
-       tp(nrOfGhost);
+        tp(nrOfGhost);
         direction[nrOfGhost].up = true;
         direction[nrOfGhost].down = true;
         direction[nrOfGhost].left = true;
         direction[nrOfGhost].right = false;
-        if(licznik[nrOfGhost]==4)
-        {
-            direction[nrOfGhost].right=true;
-        }
         return;
     }
 }
@@ -165,7 +159,8 @@ while(true) {
 
 }
 
-void PacGhosts::tp(int nrOfGhost) {
+void PacGhosts::tp(int nrOfGhost)
+{
     if(board[15][0].hasGhost)
     {
         board[15][0].hasGhost=false;
@@ -182,22 +177,23 @@ void PacGhosts::tp(int nrOfGhost) {
 
 
 }
+//
+//void PacGhosts::checkLicznik(int nrOfGhost) {
+//    if(licznik[nrOfGhost]==4)
+//    {
+//        direction[nrOfGhost].left=true;
+//        direction[nrOfGhost].right=true;
+//        direction[nrOfGhost].down=true;
+//        direction[nrOfGhost].up=true;
+//        checkDirection(nrOfGhost);
+//    }
+//
+//}
 
-void PacGhosts::checkLicznik(int nrOfGhost) {
-    if(licznik[nrOfGhost]==4)
-    {
-        direction[nrOfGhost].left=true;
-        direction[nrOfGhost].right=true;
-        direction[nrOfGhost].down=true;
-        direction[nrOfGhost].up=true;
-        ghostsMovement(nrOfGhost);
-    }
+void PacGhosts::DefaultSettings()
+{
 
-}
-
-void PacGhosts::DefaultSettings() {
-
-    for(int i=0;i<nrOfGhosts;i++)
+    for(int i=0; i < amountOfGhosts; i++)
     {
         board[ghostCoord[i].Row][ghostCoord[i].Col].hasGhost=false;
     }
@@ -212,7 +208,9 @@ void PacGhosts::DefaultSettings() {
     ghostCoord[3].Col=15;
     ghostCoord[4].Row=27;
     ghostCoord[4].Col=16;
-    for(int i=0;i<4;i++)
+    ghostCoord[5].Row=32;
+    ghostCoord[5].Col=15;
+    for(int i=0; i < amountOfGhosts; i++)
     {
         direction[i].up=true;
         direction[i].down=true;
@@ -225,7 +223,8 @@ void PacGhosts::DefaultSettings() {
 
 }
 
-void PacGhosts::DebugGhost() const{
+void PacGhosts::DebugGhost() const
+{
     for(int row=0;row<height;row++)
     {
         for(int col=0;col<width;col++)
@@ -241,5 +240,10 @@ void PacGhosts::DebugGhost() const{
         std::cout<<std::endl;
     }
 
+}
+
+int PacGhosts::getNumberOfGhosts()
+{
+    return amountOfGhosts;
 }
 

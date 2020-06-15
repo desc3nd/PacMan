@@ -70,31 +70,31 @@ int PacBoard::getWidth() const {
 int PacBoard::getHeight() const {
     return height;
 }
+//
+//void PacBoard::for_draw(int row, int col, int rowKoniec, int colKoniec) {
+//    for(int x=row; x<rowKoniec;x++)
+//    {
+//        for(int y=col; y<colKoniec;y++)
+//        {
+//            board[x][y].hasTrap=true;
+//        }
+//
+//    }
+//
+//}
 
-void PacBoard::for_draw(int row, int col, int rowKoniec, int colKoniec) {
-    for(int x=row; x<rowKoniec;x++)
-    {
-        for(int y=col; y<colKoniec;y++)
-        {
-            board[x][y].hasTrap=true;
-        }
-
-    }
-
-}
-
-void PacBoard::erase(int row, int col, int rowKoniec, int colKoniec) {
-    for(int x=row; x<rowKoniec;x++)
-    {
-        for(int y=col; y<colKoniec;y++)
-        {
-            board[x][y].hasTrap=false;
-            board[x][y].hasFood=false;
-        }
-
-    }
-
-}
+//void PacBoard::erase(int row, int col, int rowKoniec, int colKoniec) {
+//    for(int x=row; x<rowKoniec;x++)
+//    {
+//        for(int y=col; y<colKoniec;y++)
+//        {
+//            board[x][y].hasTrap=false;
+//            board[x][y].hasFood=false;
+//        }
+//
+//    }
+//
+//}
 char PacBoard::getCharInfo(int x, int y) const {
     if(board[x][y].hasTrap)
     {
