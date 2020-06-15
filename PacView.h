@@ -1,6 +1,3 @@
-//
-// Created by Marcinek on 01.06.2020.
-//
 
 #ifndef LOL_PACVIEW_H
 #define LOL_PACVIEW_H
@@ -17,7 +14,7 @@ class PacView {
     PacGhosts &pacGhosts;
 public:
 PacView(PacMan &pac, PacGhosts &ghosts, PacBoard &board);
-void Display();
+void Display() const;
 };
 
 

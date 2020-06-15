@@ -1,6 +1,4 @@
-//
-// Created by Marcinek on 31.05.2020.
-//
+
 
 #ifndef LOL_PACBOARD_H
 #define LOL_PACBOARD_H
@@ -15,14 +13,9 @@ struct field
     bool hasPremiumFood;
     bool isEmpty;
 };
-//struct coord{
-//    int col;
-//    int row;
-//};
 
 class PacBoard {
     field board[100][100]{};
-//    coord PacSegments[100][100]{};
 
     int height;
     int width;
@@ -36,9 +29,10 @@ public:
     void Debug_Display() const;
     int getWidth() const;
     int getHeight() const;
-    char getCharInfo(int x,int y);
+    char getCharInfo(int x,int y) const;
    void setFoodFalse(int row,int col);
    void DefaultSettings();
+   void setPremiumFoodFalse(int row, int col);
 
 
 

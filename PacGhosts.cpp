@@ -1,13 +1,12 @@
-//
-// Created by Marcinek on 01.06.2020.
-//
+
 
 #include "PacGhosts.h"
 #include<cstdlib>
 #include<time.h>
 #include <iostream>
 PacGhosts::PacGhosts(PacBoard &x):tab(x) {
-for(int i=0;i<7;i++)
+    nrOfGhosts=7;
+for(int i=0;i<nrOfGhosts;i++)
 {
     width=tab.getWidth();
     height=tab.getHeight();
@@ -31,14 +30,14 @@ for(int i=0;i<7;i++)
     ghostCoord[4].Col=16;
     ghostCoord[5].Row=32;
     ghostCoord[5].Col=15;
-    nr=rand()%4+1;
+
   board[ghostCoord[0].Row][ghostCoord[0].Col].hasGhost=true;
    board[ghostCoord[1].Row][ghostCoord[1].Col].hasGhost=true;
    board[ghostCoord[2].Row][ghostCoord[2].Col].hasGhost=true;
    board[ghostCoord[3].Row][ghostCoord[3].Col].hasGhost=true;
     board[ghostCoord[4].Row][ghostCoord[4].Col].hasGhost=true;
     board[ghostCoord[5].Row][ghostCoord[5].Col].hasGhost=true;
-
+    nr=rand()%4+1;
 
 
 }
@@ -84,7 +83,7 @@ void PacGhosts::ghostsMovement(int nrOfGhost) {
 
 }
 
-bool PacGhosts::isGhost(int row,int col) {
+bool PacGhosts::isGhost(int row,int col) const {
  if(board[row][col].hasGhost)
  {
      return true;
@@ -198,7 +197,7 @@ void PacGhosts::checkLicznik(int nrOfGhost) {
 
 void PacGhosts::DefaultSettings() {
 
-    for(int i=0;i<5;i++)
+    for(int i=0;i<nrOfGhosts;i++)
     {
         board[ghostCoord[i].Row][ghostCoord[i].Col].hasGhost=false;
     }
@@ -226,7 +225,7 @@ void PacGhosts::DefaultSettings() {
 
 }
 
-void PacGhosts::DebugGhost() {
+void PacGhosts::DebugGhost() const{
     for(int row=0;row<height;row++)
     {
         for(int col=0;col<width;col++)

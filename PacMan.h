@@ -1,6 +1,4 @@
-//
-// Created by Marcinek on 01.06.2020.
-//
+
 
 #ifndef LOL_PACMAN_H
 #define LOL_PACMAN_H
@@ -20,8 +18,8 @@ class PacMan {
 public:
 explicit PacMan(PacBoard &x);
 void PacMovement(char klawisz);
-void DebugDisplayPac();
-bool getCharInfo(int row, int col);
+void DebugDisplayPac() const;
+bool isPacman(int row, int col) const;
 void DefaultSettings();
 };
 

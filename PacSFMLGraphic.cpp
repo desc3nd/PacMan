@@ -1,6 +1,3 @@
-//
-// Created by Marcinek on 01.06.2020.
-//
 
 #include "PacSFMLGraphic.h"
 #include<iostream>
@@ -10,23 +7,24 @@ PacSFMLGraphic::PacSFMLGraphic(PacBoard &Board, PacMan &pac, PacGhosts &ghost, P
     height=board.getHeight();
     screenHeight=680;
     screenWidth=600;
-    numberOfFood=330;
-    numberOfTraps=686;
+    numberOfFood=325;
+    numberOfTraps=691;
+    numberOfPremiumFood=5;
+    numberOfGhosts=7;
     pacek.setRadius(5);
     if(!texture.loadFromFile("myPac.png")  || !texture2.loadFromFile("koniec.png") || !font.loadFromFile("arial.ttf"))
     {
         std::cerr<<"blad przy wczytaniu tekstury lub fontu";
     }
-   // drawBoard();
     drawMenu();
 
 }
 
-int PacSFMLGraphic::getScreenWidth() {
+int PacSFMLGraphic::getScreenWidth() const{
     return screenWidth;
 }
 
-int PacSFMLGraphic::getScreenHeight() {
+int PacSFMLGraphic::getScreenHeight() const {
     return screenHeight;
 }
 
@@ -40,25 +38,26 @@ for(int i=0;i<numberOfTraps;i++)
     {
         target.draw(food[i]);
     }
-    target.draw(ghostek[0],states);
-    target.draw(ghostek[1],states);
-    target.draw(ghostek[2],states);
-    target.draw(ghostek[3],states);
-    target.draw(ghostek[4],states);
-    target.draw(ghostek[5],states);
-    target.draw(ghostek[6],states);
+    for(int i=0;i<numberOfPremiumFood;i++)
+    {
+        target.draw(premiumFood[i],states);
+    }
+    for(int i=0;i<numberOfGhosts;i++)
+    {
+        target.draw(ghostek[i],states);
+    }
     target.draw(menu,states);
     target.draw(gameOver,states);
-
     target.draw(point);
 }
 
 void PacSFMLGraphic::drawBoard()
 {
-    int tempHeight=10;
-    int tempWidth=3;
+    int tempHeight=4;
+    int tempWidth=5;
     int nrTraps=0;
-   int nrFood=0;
+     int nrFood=0;
+     int prem=0;
     int nrGhostka=0;
     menu.setSize(sf::Vector2f(0,0));
     for (int row = 0; row < height; row++)
@@ -79,14 +78,15 @@ void PacSFMLGraphic::drawBoard()
                 food[nrFood].setPosition(sf::Vector2f(tempWidth+2,tempHeight+5));
                 food[nrFood].setFillColor(sf::Color::Magenta);
                 nrFood++;
-                for(int i=nrFood;i<numberOfFood;i++)
-                {
-                    food[i].setFillColor(sf::Color::Black);
-                    food[i].setPosition(sf::Vector2f(tempWidth+2,tempHeight+5));
-                }
             }
-
-            if(pacMan.getCharInfo(row,col))
+            if(board.getCharInfo(row,col)=='p')
+            {
+                premiumFood[prem].setRadius(5);
+                premiumFood[prem].setPosition(sf::Vector2f(tempWidth,tempHeight));
+                premiumFood[prem].setFillColor(sf::Color::Red);
+                prem++;
+            }
+            if(pacMan.isPacman(row, col))
             {
                 pacek.setRadius(8);
                 pacek.setPosition(sf::Vector2f(tempWidth-2,tempHeight-5));
@@ -99,36 +99,43 @@ void PacSFMLGraphic::drawBoard()
                 ghostek[nrGhostka].setPosition(sf::Vector2f(tempWidth-2,tempHeight-5));
                 ghostek[nrGhostka].setFillColor(sf::Color::Blue);
                 nrGhostka++;
-                if(nrGhostka>7)
+                if(ctrl.getEatableStatus())
+                {
+                    ghostek[0].setFillColor(sf::Color::Cyan);
+                    ghostek[1].setFillColor(sf::Color::Cyan);
+                    ghostek[2].setFillColor(sf::Color::Cyan);
+                    ghostek[3].setFillColor(sf::Color::Cyan);
+                    ghostek[4].setFillColor(sf::Color::Cyan);
+                    ghostek[5].setFillColor(sf::Color::Cyan);
+                    ghostek[6].setFillColor(sf::Color::Cyan);
+                }
+                if(nrGhostka>numberOfGhosts)
                 {
                     nrGhostka=0;
                 }
+            } else{
+                food[nrFood].setFillColor(sf::Color::Transparent);
+                premiumFood[prem].setFillColor(sf::Color::Transparent);
             }
 
         tempWidth+=20;
         }
-        tempWidth=10;
+        tempWidth=5;
         tempHeight+=20;
     }
-
-    std::cout<<std::endl<<nrFood<<std::endl;
     gameOver.setSize(sf::Vector2f(0,0));
     point.setCharacterSize(0);
 }
 
 void PacSFMLGraphic::drawMenu() {
-//menu.setPosition(0,0);
 menu.setSize(sf::Vector2f(600,680));
     menu.setTexture(&texture);
 }
-
 void PacSFMLGraphic::drawGameOver() {
    gameOver.setPosition(0,0);
     gameOver.setSize(sf::Vector2f(610,680));
     gameOver.setTexture(&texture2);
     drawPoints();
-
-
 }
 
 void PacSFMLGraphic::drawPoints() {

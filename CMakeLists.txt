@@ -3,7 +3,7 @@ project(PACMAN)
 
 set(CMAKE_CXX_STANDARD 14)
 add_compile_options(-Wall -Wextra)
-add_executable(PACMAN main.cpp PacBoard.cpp PacBoard.h PacMan.cpp Pacman.h PacGhosts.h PacGhosts.cpp PacView.cpp PacView.h PacGameMenager.h PacGameMenager.cpp PacSFMLGraphic.cpp PacSFMLGraphic.h PacSFMLEvent.cpp PacSFMLEvent.h)
+add_executable(PACMAN main.cpp PacBoard.cpp PacBoard.h PacMan.cpp Pacman.h PacGhosts.h PacGhosts.cpp PacView.cpp PacView.h PacGameMenager.h PacGameMenager.cpp PacSFMLGraphic.cpp PacSFMLGraphic.h PacSFMLEvent.cpp PacSFMLEvent.h PacSFMLMusic.cpp PacSFMLMusic.h)
 if (UNIX)
     set ( CMAKE_MODULES_PATH "/usr/share/SFML/cmake/Modules" ${CMAKE_MODULE_PATH})
 endif(UNIX)

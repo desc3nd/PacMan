@@ -7,26 +7,26 @@
 #include "PacSFMLGraphic.h"
 #include "PacSFMLEvent.h"
 #include"PacGameMenager.h"
-
+#include "PacSFMLMusic.h"
 int main() {
+
     PacBoard board;
     srand(time(NULL));
-//board.Debug_Display();
     PacMan Pacman(board);
     PacGhosts ghost(board);
     PacView View(Pacman, ghost, board);
-    View.Display();
     PacGameMenager gameMenager(Pacman,ghost,board);
     PacSFMLGraphic graphic(board, Pacman, ghost,gameMenager);
     PacSFMLEvent ctrl(graphic,Pacman);
+    PacSFMLMusic music(board,Pacman,ghost,gameMenager);
     sf::Clock clk1;
-    sf::Clock clk2;
     sf::RenderWindow win(sf::VideoMode(graphic.getScreenWidth(), graphic.getScreenHeight()), "PACMAN");
     win.setVerticalSyncEnabled(true);
     sf::Event event;
+    music.playMusic();
     while (win.isOpen()) {
-        while (win.pollEvent(event)) {
 
+        while (win.pollEvent(event)) {
             if (event.type == sf::Event::Closed ) {
                 win.close();
             }
@@ -37,18 +37,20 @@ int main() {
                 graphic.drawBoard();
             }
         }
-        if(clk1.getElapsedTime().asSeconds()>0.4 && ctrl.getEnterStatus() &&  gameMenager.getGameStatus()!=Lost)
+        if(clk1.getElapsedTime().asSeconds()>gameMenager.getRefreshSpeed() && ctrl.getEnterStatus() &&  gameMenager.getGameStatus()!=Lost)
         {
             for(int i=0; i<6;i++)
             {
                 ghost.ghostMove(i);
+                graphic.drawBoard();
                 gameMenager.play();
             }
             ctrl.SelfMove();
-
+            gameMenager.eatableGhosts();
             clk1.restart();
             graphic.drawBoard();
         }
+        music.soundEffect();
         gameMenager.play();
         if(gameMenager.getGameStatus()==Lost)
         {
@@ -64,7 +66,7 @@ int main() {
             ctrl.DefaultSettings();
             graphic.drawBoard();
         }
-        if(gameMenager.getPoints()>=330)
+        if(gameMenager.getGameStatus()==Win)
         {
             board.DefaultSettings();
             Pacman.DefaultSettings();
@@ -77,7 +79,5 @@ int main() {
         win.draw(graphic);
         win.display();
     }
-    std::cout<<gameMenager.getPoints();
-    View.Display();
-    board.Debug_Display();
+
 }

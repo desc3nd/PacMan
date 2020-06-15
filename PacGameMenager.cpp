@@ -1,16 +1,17 @@
-//
-// Created by Marcinek on 01.06.2020.
-//
 
 #include "PacGameMenager.h"
-
 PacGameMenager::PacGameMenager(PacMan &pac, PacGhosts &ghost, PacBoard &tab):pacMan(pac),ghosts(ghost),board(tab)
 {
     height=board.getHeight();
     width=board.getWidth();
     points=0;
+    foodLeft=325;
     status=Running;
     refreshSpeed=0.5;
+    eatable=false;
+    eatableGhostsTime=40;
+    nrOfLoop=40;
+
 }
 
 void PacGameMenager::play() {
@@ -18,42 +19,76 @@ void PacGameMenager::play() {
     {
         for(int col=0; col<width; col++)
         {
-            if(pacMan.getCharInfo(row, col) && ghosts.isGhost(row, col))
+            if(pacMan.isPacman(row, col) && ghosts.isGhost(row, col) && eatable)
+            {
+                points=points+100;
+                ghosts.DefaultSettings();
+
+            }
+            if(pacMan.isPacman(row, col) && ghosts.isGhost(row, col) && !eatable)
             {
                 status=Lost;
             }
-            if(pacMan.getCharInfo(row,col) && board.getCharInfo(row,col)=='f')
+            if(pacMan.isPacman(row, col) && board.getCharInfo(row, col) == 'p')
+            {
+                points=points+50;
+                eatableGhostsTime = 0;
+                board.setPremiumFoodFalse(row,col);
+                foodLeft--;
+            }
+            if(pacMan.isPacman(row, col) && board.getCharInfo(row, col) == 'f')
             {
                 points++;
                 board.setFoodFalse(row,col);
+                foodLeft--;
             }
+
         }
 
     }
 
 }
 
-GameStatus PacGameMenager::getGameStatus() {
+GameStatus PacGameMenager::getGameStatus()  {
+    if(foodLeft<=0)
+    {
+        status=Win;
+    }
     return status;
 }
 
-int PacGameMenager::getPoints() {
+int PacGameMenager::getPoints() const {
     return points;
 }
 
-int PacGameMenager::getRefreshSpeed() {
+float PacGameMenager::getRefreshSpeed() const {
     return refreshSpeed;
 }
 
 void PacGameMenager::DefaultSettings() {
-    status=Running;
-    if(points<330)
+    if(status==Lost)
     {
         points=0;
     }
+    status=Running;
+}
 
+void PacGameMenager::eatableGhosts() {
 
+    eatableGhostsTime++;
+    if(eatableGhostsTime<=nrOfLoop)
+    {
+      eatable=true;
+    }
+    else
+    {
+        eatable=false;
+    }
 
+}
+
+bool PacGameMenager::getEatableStatus() const {
+    return eatable;
 }
 
 

@@ -1,6 +1,4 @@
-//
-// Created by Marcinek on 05.06.2020.
-//
+
 
 #ifndef PACMAN_PACSFMLEVENT_H
 #define PACMAN_PACSFMLEVENT_H
@@ -19,8 +17,8 @@ public:
     void PacManMove();
     void SelfMove();
     void startGame();
-    bool getEnterStatus();
-    bool getAgainStatus();
+    bool getEnterStatus() const;
+    bool getAgainStatus() const;
     void restart();
     void DefaultSettings();
 };

@@ -1,6 +1,3 @@
-//
-// Created by Marcinek on 05.06.2020.
-//
 
 #include "PacSFMLEvent.h"
 
@@ -36,7 +33,7 @@ void PacSFMLEvent::SelfMove() {
 
 }
 
-void PacSFMLEvent::startGame() {
+void PacSFMLEvent::startGame()  {
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
     {
         enter=true;
@@ -44,11 +41,11 @@ void PacSFMLEvent::startGame() {
 
 }
 
-bool PacSFMLEvent::getEnterStatus() {
+bool PacSFMLEvent::getEnterStatus() const {
     return enter;
 }
 
-bool PacSFMLEvent::getAgainStatus() {
+bool PacSFMLEvent::getAgainStatus() const {
     return again;
 }
 

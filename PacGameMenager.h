@@ -1,35 +1,34 @@
-//
-// Created by Marcinek on 01.06.2020.
-//
 
 #ifndef LOL_PACGAMEMENAGER_H
 #define LOL_PACGAMEMENAGER_H
-
+#include <SFML/Audio.hpp>
 #include "PacMan.h"
 #include "PacGhosts.h"
 #include "PacView.h"
 #include "PacBoard.h"
-enum GameStatus{Running,Lost};
+enum GameStatus{Running,Lost, Win};
 class PacGameMenager {
-    PacGhosts &ghosts;
     PacMan &pacMan;
+    PacGhosts &ghosts;
     PacBoard &board;
     GameStatus status;
     int height;
     int points;
-    int lives;
     int width;
-    int refreshSpeed;
+    float refreshSpeed;
+    int foodLeft;
+    int eatableGhostsTime;
+    bool eatable;
+    int nrOfLoop;
 public:
     void play();
-    GameStatus getGameStatus();
-    int getLives();
-    int getPoints();
-    int getRefreshSpeed();
+    GameStatus getGameStatus() ;
+    int getPoints() const;
+    float getRefreshSpeed() const;
     void DefaultSettings();
     PacGameMenager(PacMan &pac,PacGhosts &ghost, PacBoard &tab);
-
-    //field board[100][100];
+    void eatableGhosts();
+    bool getEatableStatus() const;
 
 
 };

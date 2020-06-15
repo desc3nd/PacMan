@@ -1,6 +1,4 @@
-//
-// Created by Marcinek on 01.06.2020.
-//
+
 
 #ifndef LOL_PACGHOSTS_H
 #define LOL_PACGHOSTS_H
@@ -17,19 +15,20 @@ PacBoard &tab;
 int height;
 int width;
 int nr;
+int nrOfGhosts;
 int licznik[7];
 direction direction[7];
 PacCoord ghostCoord[7];
 void checkLicznik(int nrOfGhost);
-
 void ghostsMovement( int nrOfGhost);
 public:
     explicit PacGhosts(PacBoard &x);
-    bool isGhost(int row,int col);
+    bool isGhost(int row,int col) const;
     void tp(int nrOfGhost);
    void ghostMove(int nrOfGhost);
    void DefaultSettings();
-   void DebugGhost();
+   void DebugGhost() const;
+
 };
 
 

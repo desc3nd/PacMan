@@ -1,6 +1,3 @@
-//
-// Created by Marcinek on 01.06.2020.
-//
 
 #include "PacMan.h"
 #include<iostream>
@@ -61,7 +58,7 @@ board[pacCoord.Row][pacCoord.Col].hasPacman=false;
 
 }
 
-void PacMan::DebugDisplayPac() {
+void PacMan::DebugDisplayPac() const {
     for(int row=0; row<width;row++)
     {
         for( int col=0; col<height; col++)
@@ -76,7 +73,7 @@ void PacMan::DebugDisplayPac() {
     }
 }
 
-bool PacMan::getCharInfo(int row, int col) {
+bool PacMan::isPacman(int row, int col) const {
    if(board[row][col].hasPacman)
    {
        return true;
@@ -86,13 +83,11 @@ bool PacMan::getCharInfo(int row, int col) {
 void PacMan::tp() {
     if(pacCoord.Row==15 && pacCoord.Col==1)
     {
-       // board[15][0].hasPacman=false;
         pacCoord.Row=15;
         pacCoord.Col=27;
     }
     if(pacCoord.Row==15 && pacCoord.Col==28)
     {
-       //  board[15][29].hasPacman=false;
         pacCoord.Row=15;
         pacCoord.Col=2;
     }

@@ -1,6 +1,3 @@
-//
-// Created by Marcinek on 01.06.2020.
-//
 
 #include "PacView.h"
 #include<iostream>
@@ -11,7 +8,7 @@ PacView::PacView(PacMan &pac, PacGhosts &ghosts, PacBoard &board) :pacMan(pac),p
 
 }
 
-void PacView::Display() {
+void PacView::Display() const{
     for(int row=0; row<height; row++)
     {
         for(int col=0; col<width; col++)
@@ -24,13 +21,13 @@ void PacView::Display() {
             {
                 std::cout<<"F ";
             }
-            if(pacMan.getCharInfo(row,col))
+            if(pacMan.isPacman(row, col))
             {
-                std::cout<<"M ";
+                std::cout<<"M";
             }
             if(pacGhosts.isGhost(row,col))
             {
-                std::cout<<"G ";
+                std::cout<<"G";
             }
         }
         std::cout<<std::endl;
