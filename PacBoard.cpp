@@ -108,14 +108,11 @@ char PacBoard::getCharInfo(int x, int y) const {
     {
         return 'f';
     }
-    if(!board[x][y].isEmpty)
-    {
-        return'_';
-    }
     return'_';
 }
 
 void PacBoard::placeFoodOnBoard() {
+    int food=0;
     for(int row=0;row<height;row++)
     {
         for(int col=0;col<width;col++)
@@ -123,6 +120,8 @@ void PacBoard::placeFoodOnBoard() {
             if(!board[row][col].hasTrap)
             {
                 board[row][col].hasFood=true;
+                food++;
+                std::cout<<food<<std::endl;
             }
 
         }

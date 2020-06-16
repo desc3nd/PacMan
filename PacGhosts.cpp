@@ -6,6 +6,7 @@
 #include <iostream>
 PacGhosts::PacGhosts(PacBoard &x):tab(x)
 {
+    loop=0;
     amountOfGhosts=6;
     height=tab.getHeight();
     width=tab.getWidth();
@@ -41,7 +42,30 @@ PacGhosts::PacGhosts(PacBoard &x):tab(x)
 
 void PacGhosts::checkDirection(int nrOfGhost)
 {
-    if(amountOfGhosts < 0 || amountOfGhosts>=7)
+
+    if(loop>1)
+    {
+        loop=0;
+        if(tab.getCharInfo(ghostCoord[nrOfGhost].Row,ghostCoord[nrOfGhost].Col-1)=='*')
+        {
+            direction[nrOfGhost].left=false;
+        }
+        if(tab.getCharInfo(ghostCoord[nrOfGhost].Row,ghostCoord[nrOfGhost].Col+1)=='*')
+        {
+            direction[nrOfGhost].right=false;
+        }
+        if(tab.getCharInfo(ghostCoord[nrOfGhost].Row+1,ghostCoord[nrOfGhost].Col)=='*')
+        {
+            direction[nrOfGhost].down=false;
+        }
+        if(tab.getCharInfo(ghostCoord[nrOfGhost].Row-1,ghostCoord[nrOfGhost].Col)=='*')
+        {
+            direction[nrOfGhost].up=false;
+        }
+        return;
+    }
+
+    if(nrOfGhost < 0 || nrOfGhost>=7)
     {
         return;
     }
@@ -79,6 +103,7 @@ void PacGhosts::checkDirection(int nrOfGhost)
        direction[nrOfGhost].right=true;
        direction[nrOfGhost].down=true;
        direction[nrOfGhost].up=true;
+       loop++;
        checkDirection(nrOfGhost);
     }
 
@@ -100,6 +125,7 @@ bool PacGhosts::isGhost(int row,int col) const
 
 void PacGhosts::ghostMove(int nrOfGhost )
 {
+    board[ghostCoord[nrOfGhost].Row][ghostCoord[nrOfGhost].Col].hasGhost = false;
     checkDirection(nrOfGhost);
    if(licznik[nrOfGhost]>=5)
    {
@@ -161,16 +187,16 @@ while(true)
 
 void PacGhosts::tp(int nrOfGhost)
 {
-    if(board[15][0].hasGhost)
+    if(board[15][1].hasGhost)
     {
-        board[15][0].hasGhost=false;
+        board[15][1].hasGhost=false;
         ghostCoord[nrOfGhost].Row=15;
         ghostCoord[nrOfGhost].Col=28;
 
     }
-    if(board[15][29].hasGhost)
+    if(board[15][28].hasGhost)
     {
-        board[15][29].hasGhost=false;
+        board[15][28].hasGhost=false;
         ghostCoord[nrOfGhost].Row=15;
         ghostCoord[nrOfGhost].Col=1;
     }
@@ -242,7 +268,7 @@ void PacGhosts::DebugGhost() const
 
 }
 
-int PacGhosts::getNumberOfGhosts()
+int PacGhosts::getAmountOfGhosts() const
 {
     return amountOfGhosts;
 }

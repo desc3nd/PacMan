@@ -51,7 +51,9 @@ for(int i=0;i<numberOfTraps;i++)
     }
     target.draw(menu,states);
     target.draw(gameOver,states);
-    target.draw(point);
+    target.draw(point,states);
+    target.draw(tp[0],states);
+    target.draw(tp[1],states);
 }
 
 void PacSFMLGraphic::drawBoard()
@@ -62,6 +64,7 @@ void PacSFMLGraphic::drawBoard()
      int nrFood=0;
      int prem=0;
     int nrGhostka=0;
+
     menu.setSize(sf::Vector2f(0,0));
     for (int row = 0; row < height; row++)
     {
@@ -127,6 +130,7 @@ void PacSFMLGraphic::drawBoard()
         tempWidth=5;
         tempHeight+=20;
     }
+    drawTP();
     gameOver.setSize(sf::Vector2f(0,0));
     point.setCharacterSize(0);
 }
@@ -154,4 +158,19 @@ void PacSFMLGraphic::drawPoints()
     int outcome=ctrl.getPoints();
     std::string str= std::to_string(outcome);
     point.setString(str);
+}
+
+void PacSFMLGraphic::drawTP() {
+    tp[0].setFillColor(sf::Color(100,250,100));
+    tp[1].setFillColor(sf::Color(100,250,100));
+    tp[0].setPosition(sf::Vector2f(25,303));
+    tp[1].setPosition(sf::Vector2f(565,303));
+    tp[0].setRadius(7);
+    tp[1].setRadius(7);
+    if(ctrl.getGameStatus()==Lost)
+    {
+        tp[0].setFillColor(sf::Color::Transparent);
+        tp[1].setFillColor(sf::Color::Transparent);
+    }
+
 }

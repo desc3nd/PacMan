@@ -42,11 +42,11 @@ int main()
         }
         if(clk1.getElapsedTime().asSeconds()>gameMenager.getRefreshSpeed() && ctrl.getEnterStatus() &&  gameMenager.getGameStatus()!=Lost)
         {
-            for(int i=0; i<ghost.getNumberOfGhosts();i++)
+            for(int i=0; i< ghost.getAmountOfGhosts(); i++)
             {
                 ghost.ghostMove(i);
                 graphic.drawBoard();
-                gameMenager.play();
+                gameMenager.checkRelationAndRules();
             }
             ctrl.SelfMove();
             gameMenager.eatableGhosts();
@@ -55,7 +55,7 @@ int main()
         }
         music.stopStartMusic();
         music.soundEffect();
-        gameMenager.play();
+        gameMenager.checkRelationAndRules();
         if(gameMenager.getGameStatus()==Lost)
         {
             graphic.drawGameOver();

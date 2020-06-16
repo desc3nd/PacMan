@@ -31,11 +31,13 @@ sf::Text point;
 sf::RectangleShape menu;
 sf::RectangleShape gameOver;
 sf::CircleShape pacek;
-sf::CircleShape ghostek[10];
-sf::RectangleShape traps[700];
-sf::RectangleShape food[1000];
-sf::CircleShape premiumFood[500];
+sf::CircleShape ghostek[8];
+sf::RectangleShape traps[692];
+sf::RectangleShape food[333];
+sf::CircleShape tp[1];
+sf::CircleShape premiumFood[10];
 void drawPoints();
+
 public:
     PacSFMLGraphic(PacBoard &board, PacMan &pac, PacGhosts &ghost, PacGameMenager &menager );
     int getScreenWidth() const;
@@ -44,6 +46,7 @@ public:
     void drawBoard();
     void drawMenu();
     void drawGameOver();
+    void drawTP();
 };
 
 

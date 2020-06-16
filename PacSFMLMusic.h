@@ -22,7 +22,7 @@ public:
 
     PacSFMLMusic(PacBoard &Board, PacMan &pac, PacGhosts &ghost, PacGameMenager &menager );
     void stopStartMusic();
-    void soundEffect();
+    void soundEffect(); 
     void playMusic();
 };
 

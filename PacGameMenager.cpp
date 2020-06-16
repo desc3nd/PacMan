@@ -5,15 +5,15 @@ PacGameMenager::PacGameMenager(PacMan &pac, PacGhosts &ghost, PacBoard &tab):pac
     height=board.getHeight();
     width=board.getWidth();
     points=0;
-    foodLeft=330;
+    foodLeft=332;
     status=Running;
-    refreshSpeed=0.35;
+    refreshSpeed=0.2;
     eatable=false;
     eatableGhostsTime=40;
     nrOfLoop=30;
 }
 
-void PacGameMenager::play()
+void PacGameMenager::checkRelationAndRules()
 {
     for(int row=0; row<height; row++)
     {
@@ -74,6 +74,7 @@ void PacGameMenager::DefaultSettings()
     {
         points=0;
     }
+    foodLeft=332;
     status=Running;
 }
 

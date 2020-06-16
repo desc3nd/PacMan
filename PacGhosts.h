@@ -18,6 +18,7 @@ int width;
 int nr;
 int amountOfGhosts;
 int licznik[7];
+int loop;
 direction direction[7];
 PacCoord ghostCoord[7];
 //void checkLicznik(int nrOfGhost);
@@ -29,7 +30,7 @@ public:
     void ghostMove(int nrOfGhost);
     void DefaultSettings();
     void DebugGhost() const;
-    int getNumberOfGhosts();
+    int getAmountOfGhosts() const;
 };
 
 

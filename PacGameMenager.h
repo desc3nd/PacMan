@@ -22,7 +22,7 @@ class PacGameMenager
     bool eatable;
     int nrOfLoop;
 public:
-    void play();
+    void checkRelationAndRules();
     GameStatus getGameStatus() ;
     int getPoints() const;
     float getRefreshSpeed() const;

@@ -11,7 +11,6 @@ struct field
     bool hasFood;
     bool hasTrap;
     bool hasPremiumFood;
-    bool isEmpty;
 };
 
 class PacBoard
